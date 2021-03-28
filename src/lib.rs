@@ -83,17 +83,19 @@ impl DecodedPixelData {
                         // Try this on Linux with machinne format, maybe we don't need to convert it
 
                         // Unsigned 16 bit data, lookup pixel data storage order
-                        match self.endianness {
-                            // NOTE: Is it possible to use the macro here for read? Instead of another match?
-                            Endianness::Little => {
-                                println!("CONV LITTLE");
-                                LittleEndian::read_u16_into(&self.data, &mut dest);
-                            }
-                            Endianness::Big => {
-                                println!("CONV BIG");
-                                BigEndian::read_u16_into(&self.data, &mut dest);
-                            }
-                        }
+                        // match self.endianness {
+                        //     // NOTE: Is it possible to use the macro here for read? Instead of another match?
+                        //     Endianness::Little => {
+                        //         println!("CONV LITTLE");
+                        //         LittleEndian::read_u16_into(&self.data, &mut dest);
+                        //     }
+                        //     Endianness::Big => {
+                        //         println!("CONV BIG");
+                        //         BigEndian::read_u16_into(&self.data, &mut dest);
+                        //     }
+                        // }
+                        // OK, It is always the default order coming back from GDCM
+                        BigEndian::read_u16_into(&self.data, &mut dest)
                     }
                     1 => {
                         // Signed 16 bit data in 2s complement
