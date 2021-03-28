@@ -1,0 +1,19 @@
+[package]
+name = "dicom-pixel-data"
+version = "0.1.0"
+authors = ["Peter Evers <pevers90@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dicom = "0.3.0"
+snafu = "0.6.10"
+byteorder = "1.4.3"
+image = "0.23.14"
+gdcm-rs = { path = "../gdcm-rust" }
+rayon = "1.5.0"
+
+[dev-dependencies]
+dicom-test-files = "0.2.0"
+rstest = "0.6.4"
