@@ -143,8 +143,6 @@ impl PixelDecoder for DefaultDicomObject {
                 message: transfer_syntax,
             })?;
         let endianness = registry.endianness();
-        println!("ENDIANNESS {:?}", endianness);
-        println!("TS {}", transfer_syntax);
         let ts_type =
             GDCMTransferSyntax::from_str(&registry.uid()).context(GDCMNonSupportedTS {
                 message: transfer_syntax,
