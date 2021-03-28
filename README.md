@@ -1,2 +1,2 @@
 # dicom-pixel-data
-Pixel data handler for the Rust dicom-rs crate
+Pixel data handler for the dicom-rs crate.

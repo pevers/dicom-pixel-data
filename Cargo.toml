@@ -11,7 +11,7 @@ dicom = "0.3.0"
 snafu = "0.6.10"
 byteorder = "1.4.3"
 image = "0.23.14"
-gdcm-rs = { path = "../gdcm-rust" }
+gdcm-rs = "0.1.0"
 rayon = "1.5.0"
 
 [dev-dependencies]

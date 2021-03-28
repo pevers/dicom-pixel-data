@@ -77,26 +77,7 @@ impl DecodedPixelData {
             16 => {
                 let mut dest = vec![0; self.data.len() / 2];
                 match self.pixel_representation {
-                    0 => {
-                        // TODO: This is going wrong
-                        // Somehow, the endianness doesn't always reflect the real endianness
-                        // Try this on Linux with machinne format, maybe we don't need to convert it
-
-                        // Unsigned 16 bit data, lookup pixel data storage order
-                        // match self.endianness {
-                        //     // NOTE: Is it possible to use the macro here for read? Instead of another match?
-                        //     Endianness::Little => {
-                        //         println!("CONV LITTLE");
-                        //         LittleEndian::read_u16_into(&self.data, &mut dest);
-                        //     }
-                        //     Endianness::Big => {
-                        //         println!("CONV BIG");
-                        //         BigEndian::read_u16_into(&self.data, &mut dest);
-                        //     }
-                        // }
-                        // OK, It is always the default order coming back from GDCM
-                        BigEndian::read_u16_into(&self.data, &mut dest)
-                    }
+                    0 => BigEndian::read_u16_into(&self.data, &mut dest),
                     1 => {
                         // Signed 16 bit data in 2s complement
                         let mut signed_buffer = vec![0; self.data.len() / 2];
@@ -111,7 +92,6 @@ impl DecodedPixelData {
 
                         // TODO: This is a dirty way to rescale pixels to u16
                         // TODO: Figure out how this should be done properly
-                        // TODO: I implemented this in a rage
                         let max = *signed_buffer.iter().max().unwrap() as f32;
                         dest = signed_buffer
                             .par_iter()
@@ -316,10 +296,10 @@ mod tests {
         // "pydicom/ExplVR_BigEndNoMeta.dcm",
         // "pydicom/ExplVR_LitEndNoMeta.dcm",
         // "pydicom/JPEG-LL.dcm",               // More than 1 fragment
-         "pydicom/JPEG-lossy.dcm",
-         // "pydicom/JPEG2000.dcm",
-        //  "pydicom/JPEG2000_UNC.dcm",
-        //  "pydicom/JPGLosslessP14SV1_1s_1f_8b.dcm",
+        "pydicom/JPEG-lossy.dcm",
+        "pydicom/JPEG2000.dcm",
+        "pydicom/JPEG2000_UNC.dcm",
+        "pydicom/JPGLosslessP14SV1_1s_1f_8b.dcm",
 
         // "pydicom/MR-SIEMENS-DICOM-WithOverlays.dcm",
         // "pydicom/MR2_J2KI.dcm",
